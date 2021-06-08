@@ -4,7 +4,7 @@
     <div class="col"><h1>Lorem Ipsum</h1></div>
     <div class="col text-right">
         <h1><button type="button" class="btn btn-danger border-" data-toggle="modal"
-         data-target="#loginfrm">로그인</button>
+         data-target="#loginmodal">로그인</button>
         <button type="button" class="btn btn-primary">회원가입</button></h1></div>
 </header>
 

@@ -13,18 +13,18 @@
           p:maxIdle="3" />
 
     <!-- myBatis 설정 -->
-<!--    <bean id="sqlSessionFactory"-->
-<!--          class="org.mybatis.spring.SqlSessionFactoryBean"-->
-<!--          p:dataSource-ref="dbcpDataSource"-->
-<!--          p:mapperLocations="classpath:mybatis3/*Mapper.xml" />-->
-<!--    &lt;!&ndash; *mapper 하면 모든 매퍼를 찾아서 해준다 &ndash;&gt;-->
-<!--    &lt;!&ndash; p:mapperLocations="classpath:mybatis3/SungJukMapper.xml" /> &ndash;&gt;-->
+    <bean id="sqlSessionFactory"
+          class="org.mybatis.spring.SqlSessionFactoryBean"
+          p:dataSource-ref="dbcpDataSource"
+          p:mapperLocations="classpath:mybatis3/*Mapper.xml" />
+    <!-- *mapper 하면 모든 매퍼를 찾아서 해준다 -->
+    <!-- p:mapperLocations="classpath:mybatis3/SungJukMapper.xml" /> -->
 
 
-<!--    &lt;!&ndash; myBatis 설정 2 &ndash;&gt;-->
-<!--    <bean id="sqlSession"-->
-<!--          class="org.mybatis.spring.SqlSessionTemplate">-->
-<!--        <constructor-arg ref="sqlSessionFactory" index="0" />-->
-<!--    </bean>-->
+    <!-- myBatis 설정 2 -->
+    <bean id="sqlSession"
+          class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory" index="0" />
+    </bean>
 
 </beans>

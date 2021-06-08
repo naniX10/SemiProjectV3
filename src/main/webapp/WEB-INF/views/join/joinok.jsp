@@ -34,8 +34,8 @@
     </div>
 
     <div class="text-center">
-        <button type="button" id="go2index" class="btn btn-success"><i class="fas fa-home"></i>
-             메인으로 </button>
+        <a href="/"> <button type="button" id="go2index" class="btn btn-success">
+            <i class="fas fa-home"></i> 메인으로 </button></a>
     </div>
 
 

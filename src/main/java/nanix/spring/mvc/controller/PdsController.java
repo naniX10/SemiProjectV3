@@ -8,17 +8,17 @@ public class PdsController {
 
     @GetMapping("/pds/list")
     public String list() {
-        return "join/list.tiles";
+        return "pds/list.tiles";
     }
 
     @GetMapping("/pds/view")
     public String view() {
-        return "join/view.tiles";
+        return "pds/view.tiles";
     }
 
     @GetMapping("/pds/write")
     public String write() {
-        return "join/write.tiles";
+        return "pds/write.tiles";
     }
 
 }
