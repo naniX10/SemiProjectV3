@@ -36,6 +36,55 @@ $('#cancel2btn').on('click', function () {
     location.href = '/';
 });
 
+// userid check
+$('#userid').on('blur', function () {  checkuserid(); });
+$('#userid').on('focus', function () {
+    $('#uidmsg').text(' 8~16자의 영문 소문자, 숫자와 특수기호(_)만 사용할 수 있습니다.');
+    $('#uidmsg').attr('style', 'color:black');
+});
+
+// ajax check uid
+function checkuserid() {
+    let uid = $('#userid').val();
+    if (uid == '') { // 아이디를 입력하지 않고 탭을 누른 경우
+        $('#uidmsg').text('8~16자의 영문 소문자, 숫자와 특수기호(_)만 사용할 수 있습니다.');
+        $('#uidmsg').attr('style', 'color:black');
+        return;
+    }
+    $.ajax({
+        url: '/join/checkuid' ,
+        type : 'GET' ,
+        data : { 'uid': uid }
+    })
+        .done(function (data) {
+            let msg = '사용불가능한 아이디입니닷!!!!!!!';
+            $('#uidmsg').attr('style', 'color:red');
+
+            if (data.trim() == '0') {
+                msg = '사용가능한 아이디 입니닷!!!!';
+                $('#uidmsg').attr('style', 'color:blue');
+            }
+            $('#uidmsg').text( msg );
+        })
+        .fail(function (xhr, status, error) {
+            alert(xhr.status + '/' + error);
+        });
+}
+
+// check equal passwd 비번이 비번확인이랑 같을까?
+$('#repasswd').on('blur', function () {
+    let msg = '8~16자의 영문 대소문자, 숫자 및 특수문자를 사용할 수 있습니다';
+
+    if ($('#passwd').val() == $('#repasswd').val()) {
+        $('#pwdmsg').text ('비밀번호와 비밀번호 확인이 일치합니다.');
+        $('#pwdmsg').attr('style', 'color:blue');
+    } else {
+        $('#pwdmsg').text ('방금 입력한거 벌써 까먹음?');
+        $('#pwdmsg').attr('style', 'color:red');
+    }
+}); // 스타일이 안먹힐때는 'style', 'color:blue' 뒤에 !important를 추가해서 강제로 바꿈
+
+
 // joinme
 
 $('#joinbtn').on('click', function () {
@@ -75,7 +124,42 @@ $('#cancelbtn').on('click', function () {
 });
 
 // show zipcode
+$('#findzipbtn').on('click', function () {
 
+    $.ajax({
+        url: '/join/zipcode',
+        type: 'GET',
+        data: { dong: $('#dong').val() }
+    })
+        .done(function(data) {
+            // 서버에서 넘어온 데이터는 JSON 형식임
+            // alert(data);  // object로 출력
+            let opts = "";
+            $.each(data, function () {  // 행 단위 반복처리
+                let zip = '';
+                $.each(this, function (k,v) {   // 열 단위 반복처리 / k는 제목? v는 값?
+                    if (v != null) zip += v + ' ';
+                })
+                opts += '<option>' + zip + '</option>';
+            });
+            $('#addrlist').find('option').remove(); // 기존의 option 태그 삭제
+            $('#addrlist').append(opts);    // 새로 만든 option 태그를 추가함
+
+        })
+        .fail(function(xhr, status, error) {
+            alert(xhr.status + '/' + error)
+        });
+});
+
+// zipcode dong prevent enter key 엔터키 안 먹히게
+$('input[type=text]').keydown(function () {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+    }
+});
+
+
+// send zipcode
 $('#sendzip').on('click', function () {
     let addr = $('#addrlist option:selected').val();
 
@@ -96,8 +180,6 @@ $('#sendzip').on('click', function () {
     $('#zipmodal').modal('hide');
 });
 
-// send zipcode
-
 
 
 // send email2
@@ -114,5 +196,7 @@ $('#email3').on('change', function() {
        $('#email2').val(val);
    }
 });
+
+
 
 

@@ -15,7 +15,7 @@
     <select id="selectZipcode" statementType="PREPARED"
             parameterType="String"
             resultType="nanix.spring.mvc.vo.Zipcode">
-        select * from zipcode where DONG like #{dong}
+        select zipcode, sido, gugun, dong, ri, bunji from zipcode where DONG like #{dong}
     </select>
 
     <select id="checkUserid" statementType="PREPARED"

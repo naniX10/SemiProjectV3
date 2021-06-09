@@ -64,4 +64,20 @@ public class JoinController {
 
     }
 
+    // 아이디 중복검사 카운트를 이용해서 그 아이디가 있는지 검색 , 몇개가 있는지 출력
+    // /join/checkuid?uid=아이디
+    // 사용가능 아이디 : 결과 0
+    // 사용불가 아이디 : 결과 1
+    @ResponseBody
+    @GetMapping("/join/checkuid")
+    public void checkuid(String uid, HttpServletResponse res){
+        try {
+
+            res.getWriter().println( msrv.checkUserid(uid) );
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

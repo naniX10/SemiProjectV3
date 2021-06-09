@@ -68,8 +68,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public String checkUserid(String uid) {
-        return null;
-    }
+        return mdao.selectOneUserid(uid)+"";
+    } // string 으로 바꿔 주기위해 "" 추가?
 
     @Override
     public boolean checkLogin(Member m, HttpSession sess) {
