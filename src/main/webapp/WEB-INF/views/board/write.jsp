@@ -17,19 +17,26 @@
      <form id="boardfrm" name="boardfrm">
 
                  <div class="form-group row">
-                     <label class="col-2 col-form-label text-danger text-right" for="title">제목</label>
-                     <input type="text" name="title" id="title" class="form-control border-danger col-9">
+                     <label class="col-2 col-form-label text-danger text-right"
+                            for="title">제목</label>
+                     <input type="text" name="title" id="title"
+                            class="form-control border-danger col-9">
                  </div>
                  <div class="form-group row">
-                     <label class="col-2 col-form-label text-danger text-right" for="userid">작성자</label>
-                     <input type="text" name="userid" id="userid" class="form-control border-danger col-9" readonly>
+                     <label class="col-2 col-form-label text-danger text-right"
+                            for="userid">작성자</label>
+                     <input type="text" name="userid" id="userid"
+                            class="form-control border-danger col-9" readonly>
                  </div>
                  <div class="form-group row">
-                     <label class="col-2 col-form-label text-danger text-right" for="content">본문내용</label>
-                     <textarea class="form-control border-danger col-9" name="contents" id="contents" rows = "15"></textarea>
+                     <label class="col-2 col-form-label text-danger text-right"
+                            for="contents">본문내용</label>
+                     <textarea class="form-control border-danger col-9"
+                               name="contents" id="contents" rows = "15"></textarea>
                  </div>
                  <div class="form-group row">
-                     <label class="col-2 col-form-label text-danger text-right">자동<br>입력방지</label>
+                     <label class="col-2 col-form-label text-danger text-right">
+                         자동<br>입력방지</label>
                      <div class="g-recaptcha" 
 				   		data-sitekey="6LfdIwgbAAAAAGZdSMWuY4f3zaKP-dIuhTMUrU8_"></div>
 				   		<input type="hidden" id="g-recaptcha" name="g-recaptcha" />
