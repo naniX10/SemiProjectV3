@@ -93,6 +93,11 @@
 <%--    <script src="/js/board.js"></script>--%>
 <%--    <script src="/js/board.js"></script>--%>
 
+    <script>
+        // findtype tag setting 검색한 조건 유지?표시?하기?
+        $('#findtype').val('${param.findtype}').prop('selected', 'true');
+    </script>
+
    </body>
 
 </html>

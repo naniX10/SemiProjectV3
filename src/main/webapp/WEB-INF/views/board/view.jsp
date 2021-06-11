@@ -6,6 +6,16 @@
 <c:set var="newChar" value="
 " scope="application" />
 
+<%-- 게시판 댓글 처리 : reply
+    댓글 번호, 댓글내용, 작성자,   작성일,    부모글번호 , 부모댓글번호
+    1         ㅎㅇ     111    2021-06-11   111         1
+    4         ㅎㅇㅎㅇ  444    2021-06-11   111         1
+    2         ㅗㅗ     222    2021-06-11   111         2
+    3         ㅇㅅㅇ   333    2021-06-11   111         3
+
+    댓글 출력 순서는 부모글 번호로 추려낸후 부모댓글번호로 정렬
+--%>
+
 
 <div id="main">
     <div>
@@ -66,23 +76,26 @@
         <div class="row">
             <h3 class="col-10 offset-1"><i class="far fa-comments"></i> 너도 한마디?</h3></div>
         <table class="table col-10 offset-1">
-            <tr><td><h4>멍멍이</h4></td>
-                <td><div class="cmtbg1">2021.05.21 11:11:11</div>
-                <p>나도 먹고싶다</p></td></tr>
-            <tr><td></td>
-                <td><div class="cmtbg2">
-                    <span>스팸</span>
-                    <span class="pushright">2021.05.21 11:11:19</span></div>
-                <p>나도 먹고싶다</p></td></tr>
-            <tr><td><h4>멍멍이</h4></td>
-                <td><div class="cmtbg1">2021.05.21 11:11:12</div>
-                <p>나도 먹고싶다</p></td></tr>
-            <tr><td><h4>멍멍이</h4></td>
-                <td><div class="cmtbg1">2021.05.21 11:11:15</div>
-                <p>나도 먹고싶다</p></td></tr>
-            <tr><td><h4>멍멍이</h4></td>
-                <td><div class="cmtbg1">2021.05.21 11:11:20</div>
-                <p>나도 먹고싶다</p></td></tr>
+            <c:forEach var="r" items="${rps}">
+                <c:if test="${r.rno eq r.rpno}">
+                    <tr><td><h4>${r.userid}</h4></td>
+                        <td><div class="cmtbg1">${r.regdate}
+                        <span style="float:right">
+                            <c:if test="${not empty UID}">
+                                <a href="javascript:addReply('${r.rno}')">[추가]</a>
+                            </c:if>
+                            <c:if test="${UID eq r.userid}"> [수정] [삭제] </c:if>
+                        </span></div>
+                            <p>${r.reply}</p></td></tr>
+                </c:if>
+                <c:if test="${r.rno ne r.rpno }">
+                <tr><td></td>
+                    <td><div class="cmtbg2">
+                        <span>${r.userid}</span>
+                        <span class="pushright">${r.regdate}</span></div>
+                        <p>${r.reply}</p></td></tr>
+                </c:if>
+            </c:forEach>
         </table>
     </div> <!-- 댓글목록 -->
     <div>
@@ -90,23 +103,47 @@
             <form name="replyfrm" id="replyfrm"
                   class="card card-body bg-light col-10 offset-1">
                 <div class="form-group row justify-content-center">
-                    <label class="col-form-label col-2 pushdwn" for="reply">작성자</label>
-                    <textarea class="form-control col-7" name="reply" id="reply" rows="5"></textarea>&nbsp;&nbsp;
-                    <button class="btn btn-dark form-control col-2 pushdwn" type="button">
+                    <label class="col-form-label col-2 pushdwn"
+                           for="reply">${UID}</label>
+                    <textarea class="form-control col-7"
+                              name="reply" id="reply" rows="5"></textarea>&nbsp;&nbsp;
+                    <c:if test="${not empty UID}">
+                    <button class="btn btn-dark form-control col-2 pushdwn"
+                            type="button" id="newbrbtn">
                         <i class="fas fa-comment-dots"></i> 댓글쓰기</button>
+                    </c:if>
                 </div>
+                <input type="hidden" name="userid" value="${UID}" />
+                <input type="hidden" name="bdno" value="${param.bdno}" />
             </form>
         </div>
 
     </div> <!-- 댓글쓰기 -->
 </div>
 
-<script>
-    $('#newbdbtn').click(function() { location.href='/board/write.html'; })
-</script>
-<script>
-    $('#joinbtn').click(function() { location.href='/join/agree.html'; })
-</script>
-<script>
-    $('#listbdbtn').click(function() { location.href='/board/list.html'; })
-</script>
+<!-- 대댓글 작성을 위한 모달 대화 상자 -->
+<div class="modal hide" id="replyModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal=header">
+                <h3 class="modal-title">대댓글 쓰기</h3>
+            </div>
+            <div class="modal=body">
+                <form name="rpfrm" id="rpfrm" class="well form-inline">
+                    <textarea name="reply" id="rreply"
+                              rows="8" cols="75" ></textarea>
+                    <input type="hidden" name="userid" value="${UID}">
+                    <input type="hidden" name="bdno" value="${param.bdno}">
+                    <input type="hidden" name="rpno" id="rpno">
+                </form>
+            </div>
+            <div class="modal=footer">
+                <button type="button" id="newrrpbtn" class="btn btn-warning">
+                    대댓글 작성
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -9,6 +9,13 @@ $('#listbdbtn').on('click', function () {
     location.href = '/board/list';
 });
 
+
+$('#joinbtn').on('click', function() {
+    location.href='/join/agree.html';
+});
+
+
+
 // save board 글작성완료
 $('#savebdbtn').on('click', function () {
     if ($('#title').val() == '') {
@@ -36,6 +43,37 @@ $('#findbtn').on('click', function () {
         location.href = url;
     }
 
+});
+
+// findtype tag setting 검색한 조건 유지?표시?하기?
+// $('#findtype').val('#{param.findtype}').prop('selected', 'true');
+
+// new board reply
+$('#newbrbtn').on('click', function () {
+    if ($('#reply').val() == '') alert('댓글 내용을 입력해주세요!');
+    else {
+        const frm = $('#replyfrm');
+        frm.attr('method', 'post');
+        frm.attr('action', '/reply/write');
+        frm.submit();
+    }
+});
+
+// show reply
+function addReply(rno) {
+    $('#replyModal').modal('show');
+    $('#rpno').val(rno); // 대댓글 작성시 부모댓글번호를 넘겨줌
+}
+
+// new reply
+$('#newrrpbtn').on('click', function (){
+    if($('#rreply').val() == '') alert('내용을 입력해주세요!');
+    else {
+        const frm = $('#rpfrm');
+        frm.attr('method', 'post');
+        frm.attr('action', '/rreply/write');
+        frm.submit();
+    }
 });
 
 
