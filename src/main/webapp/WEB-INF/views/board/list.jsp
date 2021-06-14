@@ -164,13 +164,6 @@ endpage = startpage + 9
 
 </div>
 
-<script>
-$('#newbdbtn').click(function() { location.href='write.html'; })
-</script>
-<script>
-$('#joinbtn').click(function() { location.href='/join/agree.html'; })
-</script>
-
 
 </body>
 
