@@ -2,22 +2,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<c:if test="${param.pno eq 'null' or empty param.pno}">
+    <script>alert('내용이 없어욧!'); location.href='/pds/list?cp=1'</script>
+</c:if>
+
 <%--첨부파일 아이콘 선택--%>
 <c:set var="atticon1" value="${p.ftype1}" />
 <c:if test="${p.ftype1 ne 'zip' and p.ftype1 ne 'jpg'
-            and p.ftype1 ne 'txt' and p.ftype1 ne 'png'}">
+            and p.ftype1 ne 'txt'}">
     <c:set var="atticon1" value="file" />
 </c:if>
 
 <c:set var="atticon2" value="${p.ftype2}" />
 <c:if test="${p.ftype2 ne 'zip' and p.ftype2 ne 'jpg'
-            and p.ftype2 ne 'txt' and p.ftype2 ne 'png'}">
+            and p.ftype2 ne 'txt'}">
     <c:set var="atticon2" value="file" />
 </c:if>
 
 <c:set var="atticon3" value="${p.ftype3}" />
 <c:if test="${p.ftype3 ne 'zip' and p.ftype3 ne 'jpg'
-            and p.ftype3 ne 'txt' and p.ftype3 ne 'png'}">
+            and p.ftype3 ne 'txt'}">
     <c:set var="atticon3" value="file" />
 </c:if>
 
@@ -30,10 +34,10 @@
     <div>
         <div class="row">
             <div class="col-5 offset-1">
-                <button type="button" class="btn btn-secondary">
+                <button type="button" class="btn btn-secondary" id="pdprvbtn">
                 <i class="fas fa-chevron-left"></i> 이전게시물</button>
 
-                <button type="button" class="btn btn-secondary">
+                <button type="button" class="btn btn-secondary" id="pdnxtbtn">
                 <i class="fas fa-chevron-right"></i> 다음게시물</button>
             </div>
             <div class="col-5 text-right">
@@ -57,7 +61,8 @@
                     <tr>
                         <td colspan="2" class="tbbg4 patxt">첨부1 :
                         <img src="/img/${atticon1}.png" />
-                            ${p.fname1} (${p.fsize1}PB, ${p.fdown1}회 다운로드함)</td>
+                            <a href="/pds/down?pno=${p.pno}&order=1"> ${p.fname1}</a>
+                            (${p.fsize1}PB, ${p.fdown1}회 다운로드함)</td>
                     </tr>
                     </c:if>
 
@@ -65,7 +70,8 @@
                     <tr>
                         <td colspan="2"  class="tbbg4 patxt">첨부2 :
                             <img src="/img/${atticon2}.png" />
-                            ${p.fname2} (${p.fsize2}TB, ${p.fdown2}회 다운로드함)</td>
+                            <a href="/pds/down?pno=${p.pno}&order=2"> ${p.fname2}</a>
+                            (${p.fsize2}TB, ${p.fdown2}회 다운로드함)</td>
                     </tr>
                     </c:if>
 
@@ -73,7 +79,8 @@
                     <tr>
                         <td colspan="2"  class="tbbg4 patxt">첨부3 :
                             <img src="/img/${atticon3}.png" />
-                            ${p.fname3} (${p.fsize3}GB, ${p.fdown3}회 다운로드함)</td>
+                            <a href="/pds/down?pno=${p.pno}&order=3"> ${p.fname3}</a>
+                            (${p.fsize3}GB, ${p.fdown3}회 다운로드함)</td>
                     </tr>
                     </c:if>
             </table>
@@ -83,16 +90,23 @@
                 <button type="button" class="btn btn-warning text-white">
                 <i class="fas fa-edit"></i> 수정하기</button>
 
-                <button type="button" class="btn btn-danger">
+                <button type="button" class="btn btn-danger" id="pdrmvbtn">
                 <i class="fas fa-times-circle"></i> 삭제하기</button>
             </div>
             <div class="col-5 text-right">
+                <c:if test="${not empty UID}">
+                <button type="button"
+                           id="pdthumbtn" class="btn btn-light">
+                    <i class="far fa-thumbs-up"></i>&nbsp; 추천하기</button>
+                </c:if>
+
                 <a href="/pds/list" ><button type="button" class="btn btn-secondary">
                     <i class="fa fa-list"></i>&nbsp; 목록으로</button></a>
             </div>
         </div><!-- 배 -->
-
+        <input type="hidden" id="pno" value="${param.pno}" />
     </div> <!-- 본문글 -->
+    <br>
     <div>
         <div class="row">
             <h3 class="col-10 offset-1"><i class="far fa-comments">
@@ -124,7 +138,8 @@
                   class="card card-body bg-light col-10 offset-1">
                 <div class="form-group row justify-content-center">
                     <label class="col-form-label col-2 pushdwn" for="reply">작성자</label>
-                    <textarea class="form-control col-7" name="reply" id="reply" rows="5"></textarea>&nbsp;&nbsp;
+                    <textarea class="form-control col-7" name="reply"
+                              id="reply" rows="5"></textarea>&nbsp;&nbsp;
                     <button class="btn btn-dark form-control col-2 pushdwn" type="button">
                         <i class="fas fa-comment-dots"></i> 댓글쓰기</button>
                 </div>

@@ -18,3 +18,25 @@ $('#newpds').on('click', function (){
         frm.submit();
     }
 });
+
+// 추천
+$('#pdthumbtn').on('click', function() {
+    location.href = '/pds/recommd?pno=' + $('#pno').val();
+
+});
+
+// 이전 페이지
+$('#pdprvbtn').on('click', function () {
+    location.href = '/pds/prev?pno=' + $('#pno').val();
+});
+
+// 다음 페이지
+$('#pdnxtbtn').on('click', function () {
+    location.href = '/pds/next?pno=' + $('#pno').val();
+});
+
+// 삭제
+$('#pdrmvbtn').on('click', function () {
+    location.href = '/pds/pdrmv?pno=' + $('#pno').val();
+});
+
