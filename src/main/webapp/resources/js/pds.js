@@ -1,9 +1,14 @@
-// list
+// list 새글쓰기
 $('#newpdsbtn').on('click', function () {
     location.href = '/pds/write';
 });
 
-// write
+// write 목록으로
+$('#pdslistbtn').on('click', function () {
+    location.href = '/pds/list?cp=1';
+});
+
+// write 완료버튼
 $('#newpds').on('click', function (){
     if ($('#title').val() == '')
         alert('제목을 입력하세요!');
@@ -39,4 +44,5 @@ $('#pdnxtbtn').on('click', function () {
 $('#pdrmvbtn').on('click', function () {
     location.href = '/pds/pdrmv?pno=' + $('#pno').val();
 });
+
 

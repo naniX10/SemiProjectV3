@@ -41,7 +41,7 @@
                 <i class="fas fa-chevron-right"></i> 다음게시물</button>
             </div>
             <div class="col-5 text-right">
-                <button type="button" class="btn btn-secondary">
+                <button type="button" class="btn btn-secondary" id="newpdsbtn">
                     <i class="fas fa-plus-circle"></i>&nbsp; 새글쓰기</button>
             </div>
         </div><!-- 머리 -->
@@ -100,8 +100,8 @@
                     <i class="far fa-thumbs-up"></i>&nbsp; 추천하기</button>
                 </c:if>
 
-                <a href="/pds/list" ><button type="button" class="btn btn-secondary">
-                    <i class="fa fa-list"></i>&nbsp; 목록으로</button></a>
+                <button type="button" class="btn btn-secondary" id="pdslistbtn">
+                    <i class="fa fa-list"></i>&nbsp; 목록으로</button>
             </div>
         </div><!-- 배 -->
         <input type="hidden" id="pno" value="${param.pno}" />

@@ -11,7 +11,7 @@
         <div class="col-5 offset-1"><h3><i class="fas fa-plus-circle">
             새글쓰기</i></h3></div>
         <div class="col-5 text-right">
-            <button type="button" class="btn btn-secondary">
+            <button type="button" class="btn btn-secondary" id="pdslistbtn">
                 <i class="fas fa-list"></i>&nbsp; 목록으로</button>
         </div>
     </div>
